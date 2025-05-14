@@ -34,33 +34,45 @@ Each example shows the user input, the agent's output, and the corresponding Git
 <img src="screenshots/Query1/1-input.png" alt="Query1 Input" width="900px"/>
 
 **Output**
+
 <img src="screenshots/Query1/2-output-terminal.png" alt="Output Received" width="900px"/>
 
 **GitHub Changes**
+
 <img src="screenshots/Query1/3-output-github.png" alt="GitHub Changes" width="900px"/>
 
 #### 2. Search Open Issues that involve "async pipelines"
+
 **Input**
+
 <img src="screenshots/Query2/1-input.png" alt="Query2 Input" width="900px"/>
 
 **Output**
+
 <img src="screenshots/Query2/2-output.png" alt="Output Received" width="900px"/>
 
 #### 3. Find "Contributions wanted!" Issues
+
 **Input**
+
 <img src="screenshots/Query3/1-input.png" alt="Query3 Input" width="900px"/>
 
 **Output**
+
 <img src="screenshots/Query3/2-output.png" alt="Output Received" width="900px"/>
 
 #### 4. Fork a Repository
+
 **Input**
+
 <img src="screenshots/Query4/1-input.png" alt="Query4 Input" width="900px"/>
 
 **Output**
+
 <img src="screenshots/Query4/2-output.png" alt="Output Received" width="900px"/>
 
 **GitHub Changes**
+
 <img src="screenshots/Query4/3-output-github.png" alt="GitHub Changes" width="900px"/>
 
 ## 🚀 Installation & Setup
