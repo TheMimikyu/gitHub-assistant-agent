@@ -1,57 +1,91 @@
-<p align="center">
-<img width="300" alt="Spring into haystack logo with flowers, bee and butterfly on the logo, giving spring vibes" src="/logo/spring-into-haystack-logo.png" />
-</p>
+<img src="logo/spring-into-haystack-logo.png" alt="Spring Into Haystack Logo" align="right" width="120px"/>
 
-Welcome to the 🌸 [Spring Into Haystack](https://haystack.deepset.ai/spring-into-haystack) 🌸 your chance to cultivate something useful, elegant, and powerful — just like spring itself! 🌼
+# GitHub Assistant Agent
 
-## 🪻 Your Spring Challenge
+A Haystack‑powered MCP client that automates common GitHub workflows: typo detection, issue searching, and forking repositories.
 
-Your mission is to build a **tool-using Haystack Agent** that acts as an **MCP Client** and connects to the [GitHub MCP Server](https://github.com/github/github-mcp-server). Once connected, your Agent will be able to call GitHub tools — all through the power of the Model Context Protocol.
+Submitted to the [Spring Into Haystack](https://haystack.deepset.ai/spring-into-haystack) challenge, this agent demonstrates four static example queries to validate core functionality within scope.
 
-To get started, check out the scaffolded starter code in [`github-agent.py`](src/github-agent.py). You’ll need to:
-- Implement the missing parts
-- Configure your Agent to connect to the GitHub MCP server
-- Make sure the Agent can reason and act based on tool outputs
+> NOTE: Read the original challenge description here: https://github.com/deepset-ai/spring-into-haystack
 
-> Note: The [**official GitHub MCP Server**](https://github.com/github/github-mcp-server) requires **Docker** to run. If you're unable to use Docker (e.g. due to system limitations or permissions), you can use the [**legacy GitHub MCP Server**](https://github.com/modelcontextprotocol/servers/tree/main/src/github), which is **deprecated** but can be run easily run with `npx`. Note that the set of available tools differs between the official and legacy servers.
-
-### ✅ Test Your Agent: Find the Hidden Typo
-
-To verify your Agent is working correctly, we’ve planted a **typo somewhere in this very README**.
-
-Once your Agent is fully wired up and reasoning correctly, it should:
-1. **Detect the typo** by reading this README via the GitHub MCP server  
-2. **Open a GitHub issue** describing the typo clearly in the issue body
-
-This will prove that your Agent can:
-- Understand the task and make a plan
-- Select the right tool(s) from the GitHub MCP server
-- Execute an action on GitHub
-
-## 🌷 How to Participate
-
-1. **Fork** this repo on GitHub
-2. **Fill in the missing peices** in [`github-agent.py`](src/github-agent.py) to build your MCP-connected Agent
-3. **Push your code** to your forked repo
-4. **[Submit the link](https://forms.gle/VbyhQrKz1niyzBmGA) to the repo** so we can see your creation in full bloom!
-
-For more info, check out [Spring Into Haystack](https://haystack.deepset.ai/spring-into-haystack) webpage.
-
-## Start Building
-
-### Requirements:
-
-- A [GitHub Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with relevant permissions
-
-### Install Dependencies
-
-```
-pip install -r requirements.txt
-```
-> Note: The `mcp-haystack` package requires Python ≥ 3.10
-
-### Components:
+   
+### Components Used:
 
 - [`Agent`](https://docs.haystack.deepset.ai/docs/agent) – component for the smart decision-maker
 - [`MCPTool`](https://docs.haystack.deepset.ai/docs/mcptool) – lets your agent talk to the MCP Server
 
+## 🖥️ UI Overview
+
+The agent is designed to be user-friendly, with a simple command-line interface. Users can select from pre-existing queries, and the agent will respond with the appropriate actions or information.
+
+<img src="screenshots/0-MAIN-UI.png" alt="TUI Overview" />
+
+> #### Why Static Examples?
+> The intent of the project is to only demonstrate the core functionality of the agent. The static examples are designed to validate the agent's capabilities without risking real-world issues or changes to repositories that may arise from LLM hallucinations. This approach ensures that the agent's core functionalities are showcased effectively while maintaining a safe and controlled environment.
+
+
+
+### ⚙️ Example Workflows
+Each example shows the user input, the agent's output, and the corresponding Github changes (if any).
+
+#### 1. Typo Detection in README.md
+**Input**
+
+<img src="screenshots/Query1/1-input.png" alt="Query1 Input" width="900px"/>
+
+**Output**
+<img src="screenshots/Query1/2-output-terminal.png" alt="Output Received" width="900px"/>
+
+**GitHub Changes**
+<img src="screenshots/Query1/3-output-github.png" alt="GitHub Changes" width="900px"/>
+
+#### 2. Search Open Issues that involve "async pipelines"
+**Input**
+<img src="screenshots/Query2/1-input.png" alt="Query2 Input" width="900px"/>
+
+**Output**
+<img src="screenshots/Query2/2-output.png" alt="Output Received" width="900px"/>
+
+#### 3. Find "Contributions wanted!" Issues
+**Input**
+<img src="screenshots/Query3/1-input.png" alt="Query3 Input" width="900px"/>
+
+**Output**
+<img src="screenshots/Query3/2-output.png" alt="Output Received" width="900px"/>
+
+#### 4. Fork a Repository
+**Input**
+<img src="screenshots/Query4/1-input.png" alt="Query4 Input" width="900px"/>
+
+**Output**
+<img src="screenshots/Query4/2-output.png" alt="Output Received" width="900px"/>
+
+**GitHub Changes**
+<img src="screenshots/Query4/3-output-github.png" alt="GitHub Changes" width="900px"/>
+
+## 🚀 Installation & Setup
+
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/YourUser/themimikyu-spring-into-haystack.git
+   cd themimikyu-spring-into-haystack
+   ```
+2. **Install dependencies**
+    ```bash
+    pip install -r requirements.txt
+    ```
+3. **Environment Variables**  
+   - Copy `.env.template` to `.env`
+   - Fill in your `GITHUB_PERSONAL_ACCESS_TOKEN` and `OPENAI_API_KEY`
+4. **Setup GitHub MCP Server (requires Docker)**  
+   ```bash
+    docker --version    # verify Docker is installed
+    docker pull ghcr.io/github/github-mcp-server
+    ```
+
+5. **Run the Agent**
+    ```bash
+    python src/github-agent.py
+    ```
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
