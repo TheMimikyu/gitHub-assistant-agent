@@ -100,4 +100,4 @@ Each example shows the user input, the agent's output, and the corresponding Git
     python src/github-agent.py
     ```
 ## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is a derivative of the Spring Into Haystack event and licensed under the same license (MIT License). See the [LICENSE](LICENSE) file for details.
