@@ -1,15 +1,17 @@
 import os
 from dotenv import load_dotenv
 from haystack.components.generators.chat import OpenAIChatGenerator
+from haystack_integrations.components.generators.google_genai import GoogleGenAIChatGenerator
 from haystack.dataclasses import ChatMessage
 from haystack.components.agents import Agent
-from haystack_integrations.tools.mcp import MCPTool, StdioServerInfo
+from haystack_integrations.tools.mcp import MCPTool, StdioServerInfo, StreamableHttpServerInfo
 from haystack.utils import Secret
 
 # Load environment variables from .env file
 load_dotenv()
 GITHUB_PERSONAL_ACCESS_TOKEN = os.getenv("GITHUB_PERSONAL_ACCESS_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 # Check if the required environment variables are set
 if not GITHUB_PERSONAL_ACCESS_TOKEN:
@@ -18,14 +20,14 @@ if not GITHUB_PERSONAL_ACCESS_TOKEN:
         "Please set it in your .env file or environment."
     )
 
-if not OPENAI_API_KEY:
+if not OPENAI_API_KEY and not GOOGLE_API_KEY:
     raise ValueError(
-        "GEMINI_API_KEY environment variable not found. "
+        "OPENAI_API_KEY and GOOGLE_API_KEY environment variable not found. "
         "Please set it in your .env file or environment."
     )
 
 
-# Create the MCP server
+""" # Create the MCP server
 github_mcp_server = StdioServerInfo(
     command="docker",
     args=[
@@ -34,6 +36,12 @@ github_mcp_server = StdioServerInfo(
         "ghcr.io/github/github-mcp-server"
     ],
     env={"GITHUB_PERSONAL_ACCESS_TOKEN": GITHUB_PERSONAL_ACCESS_TOKEN}, 
+) """
+
+# Define the HTTP-based MCP server
+github_mcp_server = StreamableHttpServerInfo(
+    url="https://api.githubcopilot.com/mcp/",
+    token=Secret.from_token(GITHUB_PERSONAL_ACCESS_TOKEN),
 )
 
 print("MCP server is created")
@@ -126,13 +134,18 @@ system_prompt = """
 
 """
 
+""" 
+chat_generator=OpenAIChatGenerator(
+        model="o4-mini",
+        api_key=Secret.from_token(OPENAI_API_KEY)
+    ), """
 
 
 # Create the agent
 agent = Agent(
-    chat_generator=OpenAIChatGenerator(
-        model="o4-mini",
-        api_key=Secret.from_token(OPENAI_API_KEY)
+    chat_generator=GoogleGenAIChatGenerator(
+        model ="gemini-2.5-flash",
+        api_key=Secret.from_token(GOOGLE_API_KEY),
     ),
     tools=tools,
     system_prompt=system_prompt,

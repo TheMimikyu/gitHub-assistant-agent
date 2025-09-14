@@ -1,2 +1,3 @@
 haystack-ai
 mcp-haystack
+google-genai-haystack
